@@ -75,7 +75,7 @@ export async function updatePerk(req, res, next) {
       Object.keys(perkSchema.describe().keys), // all defined schema keys
       (schema) => schema.optional()
     );
-    const { value, error } = updateSchema.validate(req.body);
+    const { value, error } = updateSchema.validate(req.body, { noDefaults: true });
     if (error) return res.status(400).json({ message: error.message });
     const doc = await Perk.findByIdAndUpdate(
       req.params.id,
